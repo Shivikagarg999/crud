@@ -116,6 +116,11 @@
             text-decoration: underline; /* hover:underline */
         }
 
+        /* Hidden class */
+        .hidden {
+            display: none;
+        }
+
         /* Responsive Styles */
         @media (max-width: 768px) {
             .page-title {
@@ -180,6 +185,7 @@
             const tasks = document.querySelectorAll('.task');
             const companySelect = document.getElementById('company-select');
 
+            // Create a Set of unique company names
             const companies = new Set();
             tasks.forEach(task => {
                 const companyName = task.getAttribute('data-company');
@@ -188,6 +194,7 @@
                 }
             });
 
+            // Function to add options to the dropdown
             const addOption = (value, text) => {
                 const option = document.createElement('option');
                 option.value = value;
@@ -195,14 +202,19 @@
                 companySelect.appendChild(option);
             };
 
+            // Add default option
             addOption('', 'All Companies');
+            
+            // Add company options
             companies.forEach(company => addOption(company, company));
 
+            // Add 'Others' option if there are tasks without company
             const hasTasksWithoutCompany = Array.from(tasks).some(task => !task.getAttribute('data-company'));
             if (hasTasksWithoutCompany) {
                 addOption('others', 'Others');
             }
 
+            // Filtering logic
             companySelect.addEventListener('change', function() {
                 const selectedCompany = companySelect.value;
                 tasks.forEach(task => {
