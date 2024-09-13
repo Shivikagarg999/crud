@@ -5,10 +5,10 @@ const app = express();
 // 122.161.48.226
 // Database connection
 
-require('dotenv').config();
+// require('dotenv').config();
 
 // Database connection
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect('mongodb+srv://shivikagarg91:dep123@cluster0.4rkz8.mongodb.net/')
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error😒:', err));
 
