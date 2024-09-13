@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* General Styles */
+        body {
+            background-color: #111827; /* bg-zinc-900 */
+            color: #ffffff; /* text-white */
+            margin: 0;
+            padding: 0;
+            min-height: 100vh; /* min-h-screen */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem; /* p-6 */
+        }
+
+        .go-back-button {
+            background-color: #10b981; /* bg-green-500 */
+            padding: 0.75rem 1.5rem; /* px-6 py-3 */
+            color: #ffffff; /* text-white */
+            border-radius: 0.5rem; /* rounded-lg */
+            text-align: center; /* text-center */
+            text-decoration: none;
+            transition: background-color 0.3s ease; /* smooth transition */
+            display: block;
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+
+        .go-back-button:hover {
+            background-color: #059669; /* hover:bg-green-600 */
+        }
+
+        .page-title {
+            font-size: 2.5rem; /* text-4xl */
+            font-weight: bold; /* font-bold */
+            margin-bottom: 1.5rem; /* mb-6 */
+            text-align: center; /* text-center */
+        }
+
+        .edit-form {
+            background-color: #27272a; /* bg-zinc-800 */
+            padding: 1.5rem; /* p-6 */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+            width: 100%;
+            max-width: 32rem; /* max-w-lg */
+            margin: 0 auto; /* Center the form */
+        }
+
+        .edit-form label {
+            display: block;
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+
+        .edit-form input,
+        .edit-form textarea {
+            width: 100%;
+            padding: 0.75rem; /* p-2 */
+            border-radius: 0.5rem; /* rounded-lg */
+            background-color: #1f2937; /* bg-gray-700 */
+            color: #ffffff; /* text-white */
+            border: 2px solid #374151; /* border-gray-700 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        .edit-form button {
+            padding: 0.75rem 1.5rem; /* px-6 py-3 */
+            background-color: #3b82f6; /* bg-blue-500 */
+            color: #ffffff; /* text-white */
+            border-radius: 0.5rem; /* rounded-lg */
+            border: none;
+            cursor: pointer; /* cursor-pointer */
+            transition: background-color 0.3s ease; /* smooth transition */
+        }
+
+        .edit-form button:hover {
+            background-color: #2563eb; /* hover:bg-blue-600 */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem; /* text-3xl on smaller screens */
+            }
+
+            .edit-form {
+                padding: 1rem; /* Less padding on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.5rem; /* text-2xl on very small screens */
+            }
+
+            .go-back-button {
+                padding: 0.5rem 1rem; /* Less padding on smaller screens */
+                font-size: 0.875rem; /* Smaller text on very small screens */
+            }
+
+            .edit-form input,
+            .edit-form textarea {
+                padding: 0.5rem; /* Less padding on smaller screens */
+            }
+
+            .edit-form button {
+                padding: 0.5rem 1rem; /* Less padding on smaller screens */
+                font-size: 0.875rem; /* Smaller text on very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Go Back Button -->
+    <a href="/read" class="go-back-button">Go back</a>
+    
+    <!-- Page Title -->
+    <h1 class="page-title">Edit Task</h1>
+
+    <!-- Edit Form -->
+    <form action="/edit/<%= task._id %>" method="POST" class="edit-form">
+        <div class="mb-4">
+            <label for="company">Company:</label>
+            <input type="text" id="company" name="company" value="<%= task.company %>">
+        </div>
+        <div class="mb-4">
+            <label for="taskDescription">Task Description:</label>
+            <textarea id="taskDescription" name="taskDescription" rows="4"><%= task.taskDescription %></textarea>
+        </div>
+        <div class="mb-4">
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" value="<%= task.state %>">
+        </div>
+        <div class="text-center">
+            <button type="submit">Update Task</button>
+        </div>
+    </form>
+</body>
+</html>
