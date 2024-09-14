@@ -120,7 +120,9 @@
         .hidden {
             display: none;
         }
-
+        .car-num{
+            color: aqua;
+        }
         /* Responsive Styles */
         @media (max-width: 768px) {
             .page-title {
@@ -170,6 +172,7 @@
             <div class="task" data-company="<%= task.company %>">
                 <h2><%= task.company %></h2>
                 <p><%= task.taskDescription %></p>
+                <p class="car-num">Car Number: <%= task.carNum %></p>
                 <h2 class="state"><%= task.state %></h2>
                 <div class="flex space-x-4">
                     <a href="/edit/<%= task._id %>">Edit task</a>
@@ -181,54 +184,55 @@
 
     <!-- JavaScript for Filtering -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tasks = document.querySelectorAll('.task');
-            const companySelect = document.getElementById('company-select');
+    document.addEventListener('DOMContentLoaded', function() {
+    const tasks = document.querySelectorAll('.task');
+    const companySelect = document.getElementById('company-select');
 
-            // Create a Set of unique company names
-            const companies = new Set();
-            tasks.forEach(task => {
-                const companyName = task.getAttribute('data-company');
-                if (companyName) {
-                    companies.add(companyName);
-                }
-            });
+    // Create a Set of unique company names
+    const companies = new Set();
+    tasks.forEach(task => {
+        const companyName = task.getAttribute('data-company');
+        if (companyName) {
+            companies.add(companyName);
+        }
+    });
 
-            // Function to add options to the dropdown
-            const addOption = (value, text) => {
-                const option = document.createElement('option');
-                option.value = value;
-                option.textContent = text;
-                companySelect.appendChild(option);
-            };
+    // Function to add options to the dropdown
+    const addOption = (value, text) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = text;
+        companySelect.appendChild(option);
+    };
 
-            // Add default option
-            addOption('', 'All Companies');
-            
-            // Add company options
-            companies.forEach(company => addOption(company, company));
+    // Add default option
+    addOption('', 'All Companies');
+    
+    // Add company options
+    companies.forEach(company => addOption(company, company));
 
-            // Add 'Others' option if there are tasks without company
-            const hasTasksWithoutCompany = Array.from(tasks).some(task => !task.getAttribute('data-company'));
-            if (hasTasksWithoutCompany) {
-                addOption('others', 'Others');
+    // Add 'Others' option if there are tasks without company
+    const hasTasksWithoutCompany = Array.from(tasks).some(task => !task.getAttribute('data-company'));
+    if (hasTasksWithoutCompany) {
+        addOption('others', 'Others');
+    }
+
+    // Filtering logic
+    companySelect.addEventListener('change', function() {
+        const selectedCompany = companySelect.value;
+        tasks.forEach(task => {
+            const taskCompany = task.getAttribute('data-company');
+            if (selectedCompany === '' || selectedCompany === taskCompany) {
+                task.classList.remove('hidden');
+            } else if (selectedCompany === 'others' && !taskCompany) {
+                task.classList.remove('hidden');
+            } else {
+                task.classList.add('hidden');
             }
-
-            // Filtering logic
-            companySelect.addEventListener('change', function() {
-                const selectedCompany = companySelect.value;
-                tasks.forEach(task => {
-                    const taskCompany = task.getAttribute('data-company');
-                    if (selectedCompany === '' || selectedCompany === taskCompany) {
-                        task.classList.remove('hidden');
-                    } else if (selectedCompany === 'others' && !taskCompany) {
-                        task.classList.remove('hidden');
-                    } else {
-                        task.classList.add('hidden');
-                    }
-                });
-            });
         });
+    });
+});
+
     </script>
 </body>
 </html>

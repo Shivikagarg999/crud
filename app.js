@@ -4,7 +4,6 @@ const path = require('path');
 const app = express();
 // 122.161.48.226
 // Database connection
-
 // require('dotenv').config();
 
 // Database connection
@@ -16,6 +15,7 @@ mongoose.connect('mongodb+srv://shivikagarg91:dep123@cluster0.4rkz8.mongodb.net/
 const userSchema = new mongoose.Schema({
     company: String,
     taskDescription: String,
+    carNum:String,
     state: String
 });
 const User = mongoose.model('User', userSchema);
@@ -35,12 +35,12 @@ app.get('/formcreate', (req, res) => {
 
 app.post('/create', async (req, res) => {
     try {
-        const { company, taskDescription, state } = req.body;
+        const { company, taskDescription,carNum, state } = req.body;
         // Validate input
         if (!company || !taskDescription || !state) {
             return res.status(400).send('All fields are required');
         }
-        const createdUser = await User.create({ company, taskDescription, state });
+        const createdUser = await User.create({ company, taskDescription, carNum, state });
         res.redirect('/read');
     } catch (error) {
         console.error('Error creating task:', error);
