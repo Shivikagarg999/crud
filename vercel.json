@@ -7,11 +7,16 @@
       "config": {
         "includeFiles": [
           "views/**/*",  
-          "public/**/*" 
+          "public/**/*"
         ]
       }
     }
   ],
+  "functions": {
+    "app.js": {
+      "maxDuration": 60
+    }
+  },
   "routes": [
     {
       "src": "/(.*)",
